@@ -1,0 +1,20 @@
+{
+  "name": "imperative-compromise",
+  "version": "1.0.0",
+  "description": "uses nlp_compromise for fast imperative natural language processing",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "nlp",
+    "compromise",
+    "imperative"
+  ],
+  "author": "Eric Zhou",
+  "license": "ISC",
+  "dependencies": {
+    "double-metaphone": "^0.1.4",
+    "nlp_compromise": "^6.5.0"
+  }
+}
