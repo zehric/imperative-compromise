@@ -1,76 +1,23 @@
+"use strict";
 const nlp = require('nlp_compromise');
-// var validCmds = {
-//   'on': 'light',
-//   'off': 'light',
-//   'set': 'light',
-//   'unlock': 'lock',
-//   'lock': 'lock',
-//   'heat': 'thermostat',
-//   'cool': 'thermostat',
-//   'arm': 'security',
-//   'disarm': 'security'
-// }
-
-var similarArrays = function (dm1, dm2) {
-  return dm1[0] === dm2[0] || dm1[0] === dm2[1]
-    || dm1[1] === dm2[0] || dm1[1] === dm2[1];
-};
-var valid = function(type, command, params) {
-  validCmd = validCmds[command];
-  return (validCmd === type 
-    || Array.isArray(validCmd) && validCmd.indexOf(type) != -1)
-    && (command !== 'set' || (command === 'set' && params.length));
-};
-
 module.exports = {
-  commands: {},
-  objects: {},
   parse: function (sentence) {
     var lexicon = nlp.lexicon();
     var commands = module.exports.commands;
     var objects = module.exports.objects;
-    var cmdObjects = module.exports.cmdObjects;
+    var autoCmds = module.exports.autoCmds;
     var validCmds = module.exports.validCmds;
+    var ignore = module.exports.ignore;
+    if (!objects || !commands) {
+      throw new Error('commands and objects dictionary required');
+    }
 
-    // var commands = {
-    //   'enable': 'on',
-    //   'on': 'on',
-    //   'disable': 'off',
-    //   'off': 'off',
-    //   'open': 'unlock',
-    //   'unlock': 'unlock',
-    //   'close': 'lock',
-    //   'lock': 'lock',
-    //   'heat': 'heat',
-    //   'warm': 'heat',
-    //   'cool': 'cool',
-    //   'set': 'set',
-    //   'arm': 'arm',
-    //   'disarm': 'disarm'
-    // };
-    // var objects = {
-    //   'lamp': 'light',
-    //   'light': 'light',
-    //   'lightbulb': 'light',
-    //   'thermostat': 'thermostat',
-    //   'heater': 'thermostat',
-    //   'cooler': 'thermostat',
-    //   'c': 'thermostat',
-    //   'c.': 'thermostat',
-    //   'air conditioner': 'thermostat',
-    //   'security': 'security',
-    //   'door': 'lock',
-    //   'lock': 'lock',
-    //   'entrance': 'lock',
-    //   'exit': 'lock'
-    // };
-    // var cmdObjects = {
-    //   'heater': 'heat',
-    //   'cooler': 'cool',
-    //   'c': 'cool',
-    //   'c.': 'cool',
-    //   'air conditioner': 'cool'
-    // };
+    var valid = function(type, command, params) {
+      var validCmd = validCmds[command];
+      return (validCmd === type 
+          || Array.isArray(validCmd) && validCmd.indexOf(type) != -1)
+        && (command !== 'set' || (command === 'set' && params.length));
+    };
 
     for (var object in objects) {
       lexicon[object] = 'Noun';
@@ -95,6 +42,18 @@ module.exports = {
       }
       return false;
     }
+
+    var ignoreTerm = function(text) {
+      if (!ignore) {
+        return false;
+      }
+      for (let i = 0; i < ignore.length; i++) {
+        if (text === ignore[i]) {
+          return true;
+        }
+      }
+    }
+
     var type = '';
     var command = '';
     var identifier = '';
@@ -108,25 +67,14 @@ module.exports = {
         if (cmd) {
           command = cmd;
         }
-      } else if (term.text !== 'percent' && term.text !== 'degrees') {
+      } else if (!ignoreTerm(term.text)) {
         if (term.number) {
-          var n = term.number;
-          if (arr[+i + 1] && arr[+i + 1].text === 'percent') {
-            params.push(n / 100);
-            if (!type) type = 'light';
-            if (!command) command = 'set'
-          } else if (arr[+i + 1] && arr[+i + 1].text === 'degrees'){
-            params.push(n);
-            if (!type) type = 'thermostat';
-            if (!command) command = 'set';
-          } else {
-            params.push(n);
-          }
+          params.push(term.number);
         } else {
           var splitted = term.text.split(' ');
           var object = intersection(splitted, objects, true);
-          if (cmdObjects) {  
-            var cmd = intersection(splitted, cmdObjects);
+          if (autoCmds) {  
+            var cmd = intersection(splitted, autoCmds);
             if ((!command || command === 'on' || command === 'set') && cmd) {
               command = cmd;
             }
@@ -155,17 +103,5 @@ module.exports = {
       params: params
     };
     return returnDict;
-  },
-  similar: function(objects, speech, parsed) {
-    var dm = require('double-metaphone');
-    var objectArr = [];
-    for (let i = 0; i < objects.length; i++) {
-      for (let j = 0; j < speech.length; j++) {
-        if (similarArrays(dm(objects[i]), dm(speech[j]))) {
-          objectArr.push(objects[i]);
-        }
-      }
-    }
-    return objectArr;
   }
 }

@@ -12,9 +12,8 @@
     "imperative"
   ],
   "author": "Eric Zhou",
-  "license": "ISC",
+  "license": "MIT",
   "dependencies": {
-    "double-metaphone": "^0.1.4",
     "nlp_compromise": "^6.5.0"
   }
 }
