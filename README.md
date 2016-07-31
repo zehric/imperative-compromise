@@ -10,6 +10,8 @@ speech, such as a personal assistant or robot.  It uses
 [nlp_compromise](http://nlp-compromise.github.io/website/) for fast imperative
 natural language processing.
 
+[![Demo](https://img.youtube.com/vi/z2P8ELqsbtA/0.jpg)](https://www.youtube.com/watch?v=z2P8ELqsbtA)
+
 Installation
 -----------
 This module is installed with npm.
