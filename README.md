@@ -1,8 +1,14 @@
 Imperative Compromise
 ====================
 
-imperative-compromise is a simple application that takes in natural language and outputs machine-readable JSON, created for the purpose of controlling smart home devices with voice. It is currently being used by [Rently Keyless](http://www.rentlykeyless.com/) for voice control. However, this purpose can be generalized and extended to anything requiring parsing of "imperative" speech, such as a personal assistant or robot.  
-It uses [nlp_compromise](http://nlp-compromise.github.io/website/) for fast imperative natural language processing.
+imperative-compromise is a simple application that takes in natural language and
+outputs machine-readable JSON, created for the purpose of controlling smart home
+devices with voice. It is currently being used by [Rently
+Keyless](http://www.rentlykeyless.com/) for voice control. However, this purpose
+can be generalized and extended to anything requiring parsing of "imperative"
+speech, such as a personal assistant or robot.  It uses
+[nlp_compromise](http://nlp-compromise.github.io/website/) for fast imperative
+natural language processing.
 
 Installation
 -----------
