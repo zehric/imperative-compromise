@@ -72,6 +72,6 @@ parser.parse('lock');
 parser.parse('heat the living room to seventy six degrees');
 //{ type: 'thermostat', command: 'heat', identifier: 'living room', params: [ 76 ] }
 ```
-### [Full documentation](./docs.md)
+### [Full documentation](https://github.com/zehric/imperative-compromise/blob/master/docs.md)
 
 [![MIT license](http://img.shields.io/badge/license-MIT-brightgreen.svg)](http://opensource.org/licenses/MIT)
