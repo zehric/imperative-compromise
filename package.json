@@ -1,6 +1,6 @@
 {
   "name": "imperative-compromise",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "uses nlp_compromise for fast imperative natural language processing",
   "main": "index.js",
   "scripts": {
