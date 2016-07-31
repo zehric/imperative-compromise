@@ -81,11 +81,13 @@ sentence is a string representing an imperative. For example, `parser.parse
 Output
 ------
 The return value of the `parse()` function is also a JavaScript hash. It has 4
-attributes:  **type**: The "type" of device associated with the object specified
-in the input string. For the above examples, this would be "cake" in the
-sentence "slice the pie".  **command**: The "command" that should be done with
-respect to the "type". For the above examples, this would be "cut" in the
-sentence "slice the pie".  **identifier**: Any extra information specified in
-the sentence that is not a verb and does not match anything in `objects`.
+attributes:  
+**type**: The "type" of device associated with the object specified in the
+input string. For the above examples, this would be "cake" in the sentence
+"slice the pie".  
+**command**: The "command" that should be done with respect to the "type". For
+the above examples, this would be "cut" in the sentence "slice the pie".  
+**identifier**: Any extra information specified in the sentence that is not a
+verb and does not match anything in `objects`.  
 **params**: An array of extra parameters that are passed to the parser, such as
 numbers.  
