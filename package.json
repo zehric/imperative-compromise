@@ -3,8 +3,13 @@
   "version": "1.0.3",
   "description": "uses nlp_compromise for fast imperative natural language processing",
   "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/zehric/imperative-compromise.git"
+  },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
   },
   "keywords": [
     "nlp",
